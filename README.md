@@ -48,8 +48,8 @@ println!("Name: {:?}", kson!(a["name"] : String)); // Output(String): "kinggunil
 println!("Age next year: {:?}", kson!(a["age"] : i64) + 1); // Output(i64): 41
 println!("Office phone: {:?}", kson!(a["phone"]["office"] : String)); // Output(String): "010-28**-3440"
 println!("Home phone: {:?}", kson!(a["phone"]["home"] : String)); // Output(String): "031-7**-2440"
-println!("First country: {:?}", kson!(a["country"][0] : String)); // Output(String): "Korea"
-println!("Second country: {:?}", kson!(a["country"][1] : String)); // Output(String): "Canada"
+println!("country01 : {:?}", kson!(a["country"][0] : String)); // Output(String): "Korea"
+println!("country02 : {:?}", kson!(a["country"][1] : String)); // Output(String): "Canada"
 println!("number: {:?}", kson!(a["like"]["number"] : i64)); // Output(i64): 777 
 println!("number: {:?}", kson!(a["like"]["numbers"][0]["a"] : i64)); // Output(i64): 777
 println!("number: {:?}", kson!(a["like"]["numbers"][1]["b"] : i64)); // Output(i64): 121212
@@ -81,21 +81,21 @@ Object {
 }
 */
 
-//////////////////////////////////////////////
-///////Super flexible type conversion/////////
-//////////////////////////////////////////////
-kson!(b);
+
+/////// very easy flexible type conversion/////////
+
+kson!(b); // Create a new JSON-like structure
 kson!(b["any"] = 36); // : i64
 println!("any: {:?}", kson!(b["any"] : String)); // Output(String): "36"
 println!("any: {:?}", kson!(b["any"] : &str)); // Output(&str): "36"
 
 kson!(b["bee"] = "210316");    // this is String
 println!("bee: {:?}", kson!(b["bee"] : i32)); // Output(i32): 210316 
-println!("bee: {:?}", kson!(b["bee"] : i64)); // Output(i64): 210316 
-println!("bee: {:?}", kson!(b["bee"] : f64)); // Output(f64): 210316.0 
+println!("bee: {:?}", kson!(b["bee"] : i64) + 9000000); // Output(i64): 9210316 
+println!("bee: {:?}", kson!(b["bee"] : f64) + 0.77); // Output(f64): 210316.77 
 
 
-kson!(c);
+kson!(c); // Create a new JSON-like structure
 
 kson!(c[0] = "1");    // this is "String"
 let cc_0=kson!(c[0] : i64);// changed to i64
@@ -176,19 +176,19 @@ println!("Another local datetime: {}", another_datetime);  // Outputs: "2024-10-
 
 ///////// Usage : macro and funtions together //////////
 
-kson!(something);// Create a new JSON-like structure
-kson!(something["unixTime"] = kson_time());    // this is String
-kson!(something["now_time"] = kson_datetime(kson_microtime()));    // this is String
-kson!(something["something"] = kson_rand(1, 99999999));    // this is String
-kson!(something["numberFormat"] = kson_number_format(123498.75456789, 5));    // this is i64
+kson!(thing);// Create a new JSON-like structure
+kson!(thing["unixTime"] = kson_time());    // this is String
+kson!(thing["now_time"] = kson_datetime(kson_microtime()));    // this is String
+kson!(thing["thing_r"] = kson_rand(1, 99999999));    // this is String
+kson!(thing["numberFormat"] = kson_number_format(123498.75456789, 5));    // this is i64
 
-println!("{:#?}",something);
+println!("{:#?}",thing);
 // Output:
 /*
 Object {
     "now_time": String("2024-10-12 01:59:38"),
     "numberFormat": String("123,498.75457"),
-    "something": Number(7435865),
+    "thing": Number(7435865),
     "unixTime": Number(1728665978),
 }
 */
