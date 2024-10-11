@@ -17,31 +17,39 @@ To use `serde_kson`, make sure your `Cargo.toml` includes the following dependen
 [dependencies]
 serde_json = "1.0"
 serde_kson = "0.1.0"
+```
 
+## Example Usage
 
+Here is how you can use the `kson!` macro to build and interact with a JSON-like structure in Rust:
 
 ```rust
 use serde_kson::kson; // Import the kson macro
 
 fn main() {
     // Create a new JSON-like structure
-    kson!(a);
+    let mut a = kson!({});
     
     // Set values for the JSON object
-    kson!(a["name"] = "kinggunil");
-    kson!(a["age"] = 40);
-    kson!(a["phone"]["office"] = "010-28**-3440");
-    kson!(a["phone"]["home"] = "031-7**-2440");
-    kson!(a["country"][0] = "Korea");
-    kson!(a["country"][1] = "Canada");
-    kson!(a["like"]["number"] = 777);
+    a["name"] = "kinggunil".into();
+    a["age"] = 40.into();
+    a["phone"]["office"] = "010-28**-3440".into();
+    a["phone"]["home"] = "031-7**-2440".into();
+    a["country"][0] = "Korea".into();
+    a["country"][1] = "Canada".into();
+    a["like"]["number"] = 777.into();
 
     // Access and print the values
-    println!("Name: {:?}", kson!(a["name"] : String)); // Output: "kinggunil"
-    println!("Age next year: {:?}", kson!(a["age"] : i64) + 1); // Output: 41
-    println!("Office phone: {:?}", kson!(a["phone"]["office"] : String)); // Output: "010-28**-3440"
-    println!("Home phone: {:?}", kson!(a["phone"]["home"] : String)); // Output: "031-7**-2440"
-    println!("First country: {:?}", kson!(a["country"][0] : String)); // Output: "Korea"
-    println!("Second country: {:?}", kson!(a["country"][1] : String)); // Output: "Canada"
-    println!("Favorite number: {:?}", kson!(a["like"]["number"] : i64)); // Output: 777
+    println!("Name: {:?}", a["name"].as_str().unwrap()); // Output: "kinggunil"
+    println!("Age next year: {:?}", a["age"].as_i64().unwrap() + 1); // Output: 41
+    println!("Office phone: {:?}", a["phone"]["office"].as_str().unwrap()); // Output: "010-28**-3440"
+    println!("Home phone: {:?}", a["phone"]["home"].as_str().unwrap()); // Output: "031-7**-2440"
+    println!("First country: {:?}", a["country"][0].as_str().unwrap()); // Output: "Korea"
+    println!("Second country: {:?}", a["country"][1].as_str().unwrap()); // Output: "Canada"
+    println!("Favorite number: {:?}", a["like"]["number"].as_i64().unwrap()); // Output: 777
 }
+```
+
+## License
+
+This project is licensed under the MIT License.
