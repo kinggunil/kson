@@ -15,7 +15,7 @@ To use `serde_kson`, make sure your `Cargo.toml` includes the following dependen
 
 ```toml
 [dependencies]
-serde_kson = "0.3.1" #for macro
+serde_kson = "0.3.2" #for macro
 serde_json = "1.0" #for macro
 rand = "0.8.5" #for functions
 chrono = "0.4.38" #for functions
@@ -43,6 +43,16 @@ kson!(a["like"]["number"] = 777);
 kson!(a["like"]["numbers"][0]["a"] = 777777);
 kson!(a["like"]["numbers"][1]["b"] = 121212);
 
+// Access and print the values
+println!("Name: {:?}", kson!(a["name"] : String)); // Output(String): "kinggunil"
+println!("Age next year: {:?}", kson!(a["age"] : i64) + 1); // Output(i64): 41
+println!("Office phone: {:?}", kson!(a["phone"]["office"] : String)); // Output(String): "010-28**-3440"
+println!("Home phone: {:?}", kson!(a["phone"]["home"] : String)); // Output(String): "031-7**-2440"
+println!("First country: {:?}", kson!(a["country"][0] : String)); // Output(String): "Korea"
+println!("Second country: {:?}", kson!(a["country"][1] : String)); // Output(String): "Canada"
+println!("number: {:?}", kson!(a["like"]["number"] : i64)); // Output(i64): 777 
+println!("number: {:?}", kson!(a["like"]["numbers"][0]["a"] : i64)); // Output(i64): 777
+println!("number: {:?}", kson!(a["like"]["numbers"][1]["b"] : i64)); // Output(i64): 121212
 println!("{:#?}" , a);
 // Output:
 /*
@@ -70,17 +80,6 @@ Object {
     },
 }
 */
-
-// Access and print the values
-println!("Name: {:?}", kson!(a["name"] : String)); // Output(String): "kinggunil"
-println!("Age next year: {:?}", kson!(a["age"] : i64) + 1); // Output(i64): 41
-println!("Office phone: {:?}", kson!(a["phone"]["office"] : String)); // Output(String): "010-28**-3440"
-println!("Home phone: {:?}", kson!(a["phone"]["home"] : String)); // Output(String): "031-7**-2440"
-println!("First country: {:?}", kson!(a["country"][0] : String)); // Output(String): "Korea"
-println!("Second country: {:?}", kson!(a["country"][1] : String)); // Output(String): "Canada"
-println!("number: {:?}", kson!(a["like"]["number"] : i64)); // Output(i64): 777 
-println!("number: {:?}", kson!(a["like"]["numbers"][0]["a"] : i64)); // Output(i64): 777
-println!("number: {:?}", kson!(a["like"]["numbers"][1]["b"] : i64)); // Output(i64): 121212
 
 //////////////////////////////////////////////
 ///////Super flexible type conversion/////////
