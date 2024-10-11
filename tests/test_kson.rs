@@ -1,5 +1,5 @@
 // tests/test_kson.rs
-use kson::kson;
+use serde_kson::kson;
 
 #[test]
 fn test_kson_macro() {

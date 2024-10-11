@@ -1,16 +1,24 @@
 # serde_kson Macro
 
-Kson is a Rust macro that simplifies the process of building and managing JSON-like data structures. It allows you to dynamically create and manipulate nested JSON objects and arrays using a simple syntax.
+`serde_kson` is a Rust macro that simplifies the process of building and managing JSON-like data structures. It allows you to dynamically create and manipulate nested JSON objects and arrays using a simple and intuitive syntax.
 
 ## Features
 
-- Easily create nested JSON structures
-- Supports both object and array syntax
-- Convenient access and update operations
+- Easily create nested JSON structures.
+- Supports both object and array syntax.
+- Convenient access and update operations.
+- Built on top of `serde_json` for seamless integration.
 
-## Example Usage
+## Dependencies
 
-Here's how you can use the `kson!` macro to build and interact with a JSON-like structure:
+To use `serde_kson`, make sure your `Cargo.toml` includes the following dependencies:
+
+```toml
+[dependencies]
+serde_json = "1.0"
+serde_kson = "0.1.0"
+
+
 
 ```rust
 use serde_kson::kson; // Import the kson macro
