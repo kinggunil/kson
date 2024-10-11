@@ -15,7 +15,7 @@ To use `serde_kson`, make sure your `Cargo.toml` includes the following dependen
 
 ```toml
 [dependencies]
-serde_kson = "0.3.3" #for macro
+serde_kson = "0.3.4" #for macro
 serde_json = "1.0" #for macro
 rand = "0.8.5" #for functions
 chrono = "0.4.38" #for functions
@@ -44,15 +44,33 @@ kson!(a["like"]["numbers"][0]["a"] = 777777);
 kson!(a["like"]["numbers"][1]["b"] = 121212);
 
 // Access and print the values
-println!("Name: {:?}", kson!(a["name"] : String)); // Output(String): "kinggunil"
-println!("Age next year: {:?}", kson!(a["age"] : i64) + 1); // Output(i64): 41
-println!("Office phone: {:?}", kson!(a["phone"]["office"] : String)); // Output(String): "010-28**-3440"
-println!("Home phone: {:?}", kson!(a["phone"]["home"] : String)); // Output(String): "031-7**-2440"
-println!("country01 : {:?}", kson!(a["country"][0] : String)); // Output(String): "Korea"
-println!("country02 : {:?}", kson!(a["country"][1] : String)); // Output(String): "Canada"
-println!("number: {:?}", kson!(a["like"]["number"] : i64)); // Output(i64): 777 
-println!("number: {:?}", kson!(a["like"]["numbers"][0]["a"] : i64)); // Output(i64): 777
-println!("number: {:?}", kson!(a["like"]["numbers"][1]["b"] : i64)); // Output(i64): 121212
+println!("Name: {:?}", kson!(a["name"] : String)); 
+// Output(String): "kinggunil"
+
+println!("Age next year: {:?}", kson!(a["age"] : i64) + 1); 
+// Output(i64): 41
+
+println!("Office phone: {:?}", kson!(a["phone"]["office"] : String)); 
+// Output(String): "010-28**-3440"
+
+println!("Home phone: {:?}", kson!(a["phone"]["home"] : String)); 
+// Output(String): "031-7**-2440"
+
+println!("country01 : {:?}", kson!(a["country"][0] : String)); 
+// Output(String): "Korea"
+
+println!("country02 : {:?}", kson!(a["country"][1] : String)); 
+// Output(String): "Canada"
+
+println!("number: {:?}", kson!(a["like"]["number"] : i64)); 
+// Output(i64): 777 
+
+println!("number: {:?}", kson!(a["like"]["numbers"][0]["a"] : i64)); 
+// Output(i64): 777
+
+println!("number: {:?}", kson!(a["like"]["numbers"][1]["b"] : i64)); 
+// Output(i64): 121212
+
 println!("{:#?}" , a);
 // Output:
 /*
@@ -86,13 +104,18 @@ Object {
 
 kson!(b); // Create a new JSON-like structure
 kson!(b["any"] = 36); // : i64
-println!("any: {:?}", kson!(b["any"] : String)); // Output(String): "36"
-println!("any: {:?}", kson!(b["any"] : &str)); // Output(&str): "36"
+println!("any: {:?}", kson!(b["any"] : String)); 
+// Output(String): "36"
+println!("any: {:?}", kson!(b["any"] : &str)); 
+// Output(&str): "36"
 
 kson!(b["bee"] = "210316");    // this is String
-println!("bee: {:?}", kson!(b["bee"] : i32)); // Output(i32): 210316 
-println!("bee: {:?}", kson!(b["bee"] : i64) + 9000000); // Output(i64): 9210316 
-println!("bee: {:?}", kson!(b["bee"] : f64) + 0.77); // Output(f64): 210316.77 
+println!("bee: {:?}", kson!(b["bee"] : i32)); 
+// Output(i32): 210316 
+println!("bee: {:?}", kson!(b["bee"] : i64) + 9000000); 
+// Output(i64): 9210316 
+println!("bee: {:?}", kson!(b["bee"] : f64) + 0.77); 
+// Output(f64): 210316.77 
 
 
 kson!(c); // Create a new JSON-like structure
@@ -134,62 +157,73 @@ use serde_kson::*;
 // kson_rand: Generates a random number between `min` and `max` (inclusive).
 // Returns: i64
 let random_num = kson_rand(1, 100); 
-println!("Random number: {}", random_num); // Output: 79
+println!("Random number: {}", random_num); 
+// Output: 79
 
 let another_random_num = kson_rand(-500, 10); 
-println!("Another random number: {}", another_random_num); // Output: -324
+println!("Another random number: {}", another_random_num); 
+// Output: -324
 
 // kson_sleep: Suspends the current thread for the specified number of seconds.
 // Returns: ()
-kson_sleep(2.5);  // Sleeps for 2.5 seconds
-kson_sleep(0.005);  // Sleeps for 0.005 second
+kson_sleep(2.5);  
+// Sleeps for 2.5 seconds
+kson_sleep(0.005);  
+// Sleeps for 0.005 second
 
 // kson_time: Returns the current UNIX time in seconds.
 // Returns: u64
-let unix_time = kson_time(); // Outputs: 1728663849
+let unix_time = kson_time(); 
+// Outputs: 1728663849
 println!("Current UNIX time: {}", unix_time);
 
 // kson_microtime: Returns the current UNIX time in microseconds.
 // Returns: u64
-let micro_time = kson_microtime(); // Outputs: 1728663849000
+let micro_time = kson_microtime(); 
+// Outputs: 1728663849000
 println!("Current UNIX time (microseconds): {}", micro_time);
 
 // kson_number_format: Formats a number with the specified number of decimal places and inserts commas to separate thousands.
 // Returns: String
 let formatted = kson_number_format(1234567.89123, 2);
-println!("Formatted number: {}", formatted);  // Outputs: "1,234,567.89"
+println!("Formatted number: {}", formatted);  
+// Outputs: "1,234,567.89"
 
 let another_formatted = kson_number_format(987654321.12345, 3);
-println!("Another formatted number: {}", another_formatted);  // Outputs: "987,654,321.123"
+println!("Another formatted number: {}", another_formatted);  
+// Outputs: "987,654,321.123"
 
 // kson_datetime: Converts a UNIX timestamp (in seconds or microseconds) to a formatted string in the local timezone.
 // Returns: String
 let datetime = kson_datetime(1694444030);
-println!("Local datetime: {}", datetime);  // Outputs: "2024-10-11 15:13:50"
+println!("Local datetime: {}", datetime);  
+// Outputs: "2024-10-11 15:13:50"
 
 let datetime = kson_datetime(kson_time());
-println!("Local datetime: {}", datetime);  // Outputs: "2024-10-11 15:30:00" <=current
+println!("Local datetime: {}", datetime);  
+// Outputs: "2024-10-11 15:30:00" <=current
 
 let another_datetime = kson_datetime(kson_microtime());
-println!("Another local datetime: {}", another_datetime);  // Outputs: "2024-10-11 15:30:00" <=current
+println!("Another local datetime: {}", another_datetime);  
+// Outputs: "2024-10-11 15:30:00" <=current
 
 
 ///////// Usage : macro and funtions together //////////
 
 kson!(thing);// Create a new JSON-like structure
-kson!(thing["unixTime"] = kson_time());    // this is String
-kson!(thing["now_time"] = kson_datetime(kson_microtime()));    // this is String
-kson!(thing["thing_r"] = kson_rand(1, 99999999));    // this is String
-kson!(thing["numberFormat"] = kson_number_format(123498.75456789, 5));    // this is i64
+kson!(thing["unixTime"] = kson_time());
+kson!(thing["now_time"] = kson_datetime(kson_microtime()));
+kson!(thing["thing_r"] = kson_rand(1, 99999999));    
+kson!(thing["numberFormat"] = kson_number_format(123498.75456789, 5));
 
 println!("{:#?}",thing);
 // Output:
 /*
 Object {
-    "now_time": String("2024-10-12 01:59:38"),
-    "numberFormat": String("123,498.75457"),
-    "thing": Number(7435865),
     "unixTime": Number(1728665978),
+    "now_time": String("2024-10-12 01:59:38"),
+    "thing_r": Number(7435865),
+    "numberFormat": String("123,498.75457"),
 }
 */
 
