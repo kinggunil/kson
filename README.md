@@ -16,7 +16,7 @@ To use `serde_kson`, make sure your `Cargo.toml` includes the following dependen
 ```toml
 [dependencies]
 serde_json = "1.0"
-serde_kson = "0.1.3"
+serde_kson = "0.2.0"
 ```
 
 ## Example Usage
