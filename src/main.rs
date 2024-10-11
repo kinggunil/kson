@@ -1,4 +1,4 @@
-use serde_kson::kson;
+use serde_kson::*;
 
 fn main() {
     // Create a new JSON-like structure
@@ -77,4 +77,46 @@ fn main() {
 
     let dd=cc_0+cc_1; //i64 + i64
     println!("dd: {:?}", dd); // Output: 1
+
+    println!("rand 1: {}",kson_rand(1, 10000));
+    println!("rand 2: {}",kson_rand(1, 10000));
+    println!("rand 3: {}",kson_rand(-1500, 100));
+
+
+    let t=kson_time();
+    println!("{}",t);
+
+    let t=kson_microtime();
+    println!("{}",t);
+
+    let m = 4511164564.23563445;
+    println!("{}",kson_number_format(m, 2));
+    let m = 1;
+    println!("{}",kson_number_format(m, 2));
+    let m = -15.5454;
+    println!("{}",kson_number_format(m, 2));
+    let m = -9873215415.5454;
+    println!("{}",kson_number_format(m , 10));
+    println!("{}",kson_datetime(kson_microtime()));
+
+
+
+    kson!(something);
+    kson!(something["unixTime"] = kson_time());    // this is String
+    kson!(something["now_time"] = kson_datetime(kson_microtime()));    // this is String
+    kson!(something["something"] = kson_rand(1, 99999999));    // this is String
+    kson!(something["numberFormat"] = kson_number_format(123498.75456789, 5));    // this is i64
+
+    println!("{:#?}",something);
+    // Output:
+    /*
+    Object {
+        "now_time": String("2024-10-12 01:59:38"),
+        "numberFormat": String("123,498.75457"),
+        "something": Number(7435865),
+        "unixTime": Number(1728665978),
+    }
+    */
+    
+    kson();
 }

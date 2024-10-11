@@ -1,6 +1,6 @@
 [package]
 name = "serde_kson"
-version = "0.2.1"
+version = "0.3.0"
 edition = "2021"
 description = "An easy-to-use JSON library designed for developers familiar with scripting languages. Super flexible type conversion"
 license = "MIT"
@@ -10,4 +10,5 @@ homepage = "https://github.com/kinggunil/kson"
 
 [dependencies]
 serde_json = "1.0"
-
+rand = "0.8.5"
+chrono = "0.4.38"

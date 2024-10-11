@@ -1,5 +1,5 @@
 // tests/test_kson.rs
-use serde_kson::kson;
+use serde_kson::*;
 
 #[test]
 fn test_kson_macro() {
@@ -80,4 +80,27 @@ fn test_kson_macro() {
     let dd=cc_0+cc_1; //i64 + i64
     println!("dd: {:?}", dd); // Output: 1
 
+    println!("{}",kson_rand(1, 10000));
+    println!("{}",kson_rand(1, 10000));
+    println!("{}",kson_rand(1, 10000));
+
+
+    let t=kson_time();
+    println!("{}",t);
+
+    let t=kson_microtime();
+    println!("{}",t);
+
+    let m = 4511164564.23563445;
+    println!("{}",kson_number_format(m, 2));
+    let m = 1;
+    println!("{}",kson_number_format(m, 2));
+    let m = -15.5454;
+    println!("{}",kson_number_format(m, 2));
+    let m = -9873215415.5454;
+    println!("{}",kson_number_format(m , 10));
+
+    println!("{}",kson_datetime(kson_microtime()));
+
+    kson();
 }
