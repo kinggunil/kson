@@ -1,6 +1,6 @@
 [package]
 name = "serde_kson"
-version = "0.1.0"
+version = "0.1.1"
 email = "kinggunil@gmail.com"
 edition = "2021"
 description = "An easy-to-use JSON management library designed for developers familiar with scripting languages."
