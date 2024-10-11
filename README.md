@@ -15,7 +15,7 @@ To use `serde_kson`, make sure your `Cargo.toml` includes the following dependen
 
 ```toml
 [dependencies]
-serde_kson = "0.3.0" #for macro
+serde_kson = "0.3.1" #for macro
 serde_json = "1.0" #for macro
 rand = "0.8.5" #for functions
 chrono = "0.4.38" #for functions
@@ -50,8 +50,8 @@ Object {
     "name": String("kinggunil"),
     "age": Number(40),
     "phone": Object {
-        "home": String("031-7**-2440"),
         "office": String("010-28**-3440"),
+        "home": String("031-7**-2440"),
     },
     "country": Array [
         String("Korea"),
@@ -72,36 +72,37 @@ Object {
 */
 
 // Access and print the values
-println!("Name: {:?}", kson!(a["name"] : String)); // Output: "kinggunil"
-println!("Age next year: {:?}", kson!(a["age"] : i64) + 1); // Output: 41
-println!("Office phone: {:?}", kson!(a["phone"]["office"] : String)); // Output: "010-28**-3440"
-println!("Home phone: {:?}", kson!(a["phone"]["home"] : String)); // Output: "031-7**-2440"
-println!("First country: {:?}", kson!(a["country"][0] : String)); // Output: "Korea"
-println!("Second country: {:?}", kson!(a["country"][1] : String)); // Output: "Canada"
-println!("number: {:?}", kson!(a["like"]["number"] : i64)); // Output: 777
-println!("number: {:?}", kson!(a["like"]["numbers"][0]["a"] : i64)); // Output: 777
-println!("number: {:?}", kson!(a["like"]["numbers"][1]["b"] : i64)); // Output: 121212
+println!("Name: {:?}", kson!(a["name"] : String)); // Output(String): "kinggunil"
+println!("Age next year: {:?}", kson!(a["age"] : i64) + 1); // Output(i64): 41
+println!("Office phone: {:?}", kson!(a["phone"]["office"] : String)); // Output(String): "010-28**-3440"
+println!("Home phone: {:?}", kson!(a["phone"]["home"] : String)); // Output(String): "031-7**-2440"
+println!("First country: {:?}", kson!(a["country"][0] : String)); // Output(String): "Korea"
+println!("Second country: {:?}", kson!(a["country"][1] : String)); // Output(String): "Canada"
+println!("number: {:?}", kson!(a["like"]["number"] : i64)); // Output(i64): 777 
+println!("number: {:?}", kson!(a["like"]["numbers"][0]["a"] : i64)); // Output(i64): 777
+println!("number: {:?}", kson!(a["like"]["numbers"][1]["b"] : i64)); // Output(i64): 121212
 
 //////////////////////////////////////////////
 ///////Super flexible type conversion/////////
 //////////////////////////////////////////////
 kson!(b);
-kson!(b["any"] = 36);    // this is i64
-println!("any: {:?}", kson!(b["any"] : String)); // Output: "36" this is string !!
-println!("any: {:?}", kson!(b["any"] : &str)); // Output: "36" this is &str !!
+kson!(b["any"] = 36); // : i64
+println!("any: {:?}", kson!(b["any"] : String)); // Output(String): "36"
+println!("any: {:?}", kson!(b["any"] : &str)); // Output(&str): "36"
 
 kson!(b["bee"] = "210316");    // this is String
-println!("bee: {:?}", kson!(b["bee"] : i32)); // Output: 210316 this is i32 !!
-println!("bee: {:?}", kson!(b["bee"] : i64)); // Output: 210316 this is i64 !!
-println!("bee: {:?}", kson!(b["bee"] : f64)); // Output: 210316.0 this is f64 !!
+println!("bee: {:?}", kson!(b["bee"] : i32)); // Output(i32): 210316 
+println!("bee: {:?}", kson!(b["bee"] : i64)); // Output(i64): 210316 
+println!("bee: {:?}", kson!(b["bee"] : f64)); // Output(f64): 210316.0 
 
 
 kson!(c);
+
 kson!(c[0] = "1");    // this is "String"
-let cc_0=kson!(c[0] : i64);// change to i64
+let cc_0=kson!(c[0] : i64);// changed to i64
+
 kson!(c[1] = 3);    // this is i64
 let cc_1=kson!(c[1] : i64);// this is i64
-
 
 let dd=cc_0+cc_1; //i64 + i64
 println!("dd: {:?}", dd); // Output: 1
