@@ -56,7 +56,16 @@ macro_rules! kson {
                 }
             };
         )*
-        temp.as_str().unwrap()
+        // 숫자일 경우 문자열로 변환하여 반환
+        if let Some(str_value) = temp.as_str() {
+            str_value
+        } else if let Some(num_value) = temp.as_i64() {
+            Box::leak(Box::new(num_value.to_string()))
+        } else if let Some(num_value) = temp.as_f64() {
+            Box::leak(Box::new(num_value.to_string()))
+        } else {
+            panic!("타입 '&str'로 변환할 수 없습니다.")
+        }
     }};
 
     // 특정 타입으로 값을 가져올 때 사용
@@ -80,6 +89,26 @@ macro_rules! kson {
                 }
             };
         )*
-        serde_json::from_value::<$t>(temp.clone()).unwrap()
+
+        // 자동 타입 변환 시도
+        serde_json::from_value::<$t>(temp.clone()).unwrap_or_else(|_| {
+            if let Some(str_value) = temp.as_str() {
+                // 문자열로 저장된 숫자를 파싱
+                if let Ok(parsed_value) = str_value.parse::<$t>() {
+                    parsed_value
+                } else {
+                    panic!("값을 타입 '{}'으로 변환할 수 없습니다.", stringify!($t))
+                }
+            } else if let Some(num_value) = temp.as_f64() {
+                // 숫자를 문자열로 변환하는 경우
+                if stringify!($t) == "String" || stringify!($t) == "&str" {
+                    num_value.to_string().parse::<$t>().unwrap()
+                } else {
+                    panic!("값을 타입 '{}'으로 변환할 수 없습니다.", stringify!($t))
+                }
+            } else {
+                panic!("타입 '{}'으로 변환할 수 없습니다.", stringify!($t))
+            }
+        })
     }};
 }
