@@ -1,5 +1,5 @@
 [package]
-name = "kson"
+name = "serde_kson"
 version = "0.1.0"
 email = "kinggunil@gmail.com"
 edition = "2021"
