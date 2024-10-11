@@ -17,6 +17,34 @@ fn test_kson_macro() {
     kson!(a["like"]["numbers"][0]["a"] = 777777);
     kson!(a["like"]["numbers"][1]["b"] = 121212);
 
+    println!("{:#?}",a);
+    // Output:
+    /*
+    Object {
+        "age": Number(40),
+        "country": Array [
+            String("Korea"),
+            String("Canada"),
+        ],
+        "like": Object {
+            "number": Number(777),
+            "numbers": Array [
+                Object {
+                    "a": Number(777777),
+                },
+                Object {
+                    "b": Number(121212),
+                },
+            ],
+        },
+        "name": String("kinggunil"),
+        "phone": Object {
+            "home": String("031-7**-2440"),
+            "office": String("010-28**-3440"),
+        },
+    }    
+     */
+
     // Access and print the values
     println!("Name: {:?}", kson!(a["name"] : String)); // Output: "kinggunil"
     println!("Age next year: {:?}", kson!(a["age"] : i64) + 1); // Output: 41
@@ -51,7 +79,5 @@ fn test_kson_macro() {
 
     let dd=cc_0+cc_1; //i64 + i64
     println!("dd: {:?}", dd); // Output: 1
-
-
 
 }
