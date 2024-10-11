@@ -15,7 +15,7 @@ To use `serde_kson`, make sure your `Cargo.toml` includes the following dependen
 
 ```toml
 [dependencies]
-serde_kson = "0.3.2" #for macro
+serde_kson = "0.3.3" #for macro
 serde_json = "1.0" #for macro
 rand = "0.8.5" #for functions
 chrono = "0.4.38" #for functions
