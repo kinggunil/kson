@@ -16,7 +16,7 @@ To use `serde_kson`, make sure your `Cargo.toml` includes the following dependen
 ```toml
 [dependencies]
 serde_json = "1.0"
-serde_kson = "0.1.2"
+serde_kson = "0.1.3"
 ```
 
 ## Example Usage
@@ -28,7 +28,7 @@ use serde_kson::kson; // Import the kson macro
 
 fn main() {
     // Create a new JSON-like structure
-    let mut a = kson!({});
+    kson!(a);
     
     // Set values for the JSON object
     kson!(a["name"] = "kinggunil");
