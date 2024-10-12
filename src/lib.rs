@@ -1,4 +1,14 @@
 // src/lib.rs
+
+
+
+
+
+
+
+
+
+
 #[macro_export]
 macro_rules! kson {
     // 변수를 초기화할 때 사용
@@ -90,6 +100,14 @@ macro_rules! kson {
             };
         )*
 
+
+        
+
+
+        
+
+
+
         // 자동 타입 변환 시도
         serde_json::from_value::<$t>(temp.clone()).unwrap_or_else(|_| {
             if let Some(str_value) = temp.as_str() {
@@ -111,7 +129,40 @@ macro_rules! kson {
             }
         })
     }};
+
+    // 지정된 표현식을 원하는 타입으로 변환
+    ($expr:expr => String) => {{
+        let value = serde_json::json!($expr);
+        if let Some(s) = value.as_str() {
+            s.to_string()
+        } else if let Some(n) = value.as_f64() {
+            n.to_string()
+        } else {
+            panic!("Failed to convert the value to String.")
+        }
+    }};
+    ($expr:expr => $t:ty) => {{
+        let value = serde_json::json!($expr);
+        serde_json::from_value::<$t>(value.clone()).unwrap_or_else(|_| {
+            if let Some(s) = value.as_str() {
+                // 문자열을 원하는 타입으로 파싱 시도
+                s.parse::<$t>().unwrap_or_else(|_| {
+                    panic!("'{}'를 타입 '{}'로 파싱할 수 없습니다.", s, stringify!($t))
+                })
+            } else if let Some(n) = value.as_f64() {
+                // 숫자를 원하는 타입으로 캐스팅 시도
+                n as $t
+            } else {
+                panic!("Failed to convert the value to type '{}'.", stringify!($t))
+            }
+        })
+    }};
+
+
+
+
 }
+
 
 use rand::Rng;
 pub fn kson_rand(min: i64, max: i64) -> i64 {
@@ -193,6 +244,30 @@ pub fn kson_datetime(unix_time: u64) -> String {
     local_time.format("%Y-%m-%d %H:%M:%S").to_string()
 }
 
+
+use std::time::Instant;
+static mut START_TIME: Option<Instant> = None;
+
+pub fn kson_tic() {
+    unsafe {
+        START_TIME = Some(Instant::now());
+    }
+}
+
+pub fn kson_toc() {
+    unsafe {
+        if let Some(start) = START_TIME {
+            let duration = start.elapsed();
+            println!("\nElapsed time: {:?}\n", duration);
+        } else {
+            println!("Error: kson_tic() was not called.");
+        }
+        START_TIME = None;  // Reset START_TIME
+    }
+}
+
+
+
 pub fn kson() {
     let blue = "\x1b[34m";
     let reset = "\x1b[0m";
@@ -207,6 +282,7 @@ pub fn kson() {
     println!("{}kson_datetime(kson_time());{}", blue, reset);
     println!("{}kson_number_format(123456789);{}", blue, reset);
     println!("{}kson_sleep(3);{}", blue, reset);
-
+    println!("{}kson_tic());{}", blue, reset);
+    println!("{}kson_toc());{}", blue, reset);
     println!("{}============================{}", blue, reset);
 }

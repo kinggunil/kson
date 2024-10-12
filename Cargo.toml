@@ -1,6 +1,6 @@
 [package]
 name = "serde_kson"
-version = "0.3.4"
+version = "0.4.0"
 edition = "2021"
 description = "An easy-to-use JSON library designed for developers familiar with scripting languages. Super flexible type conversion"
 license = "MIT"
