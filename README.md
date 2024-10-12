@@ -15,7 +15,7 @@ To use `serde_kson`, make sure your `Cargo.toml` includes the following dependen
 
 ```toml
 [dependencies]
-serde_kson = "0.4.0" #for macro
+serde_kson = "0.4.1" #for macro
 serde_json = "1.0" #for macro
 rand = "0.8.5" #for functions
 chrono = "0.4.38" #for functions
@@ -123,6 +123,33 @@ Object {
 }
 */
 
+////// flexible type conversion/////////
+
+println!("{:#?}", kson!( 77 => String) + "99" );
+// Output(String): "7799"
+
+println!("{:#?}", kson!( "77" => String) + "99" );
+// Output(String): "7799"
+
+println!("{:#?}", kson!( "50" => i64) + 99 );     
+// Output(i64): 149
+
+println!("{:#?}", kson!( "50" => i32) + 99 );     
+// Output(i32): 149
+
+println!("{:#?}", kson!( "50" => f32) + 99.0 );     
+// Output(f32): 149.0
+
+println!("{:#?}", kson!( "50" => f64) + 99.0 );     
+// Output(f64): 149.0
+
+println!("{:#?}", kson!( 50.0 => f32) + 99.0 );     
+// Output(f32): 149.0
+
+println!("{:#?}", kson!( 50.0 => i64) + 99 );     
+// Output(i64): 149
+
+
 /////// very easy flexible type conversion/////////
 
 kson!(b); 
@@ -168,32 +195,6 @@ println!("dd: {:?}", dd );
 // Output(i64): 88
 
 
-////// more flexible type conversion/////////
-
-println!("{:#?}", kson!( 77 => String) + "99" );
-// Output(String): "7799"
-
-println!("{:#?}", kson!( "77" => String) + "99" );
-// Output(String): "7799"
-
-println!("{:#?}", kson!( "50" => i64)+99 );     
-// Output(i64): 149
-
-println!("{:#?}", kson!( "50" => i32)+99 );     
-// Output(i32): 149
-
-println!("{:#?}", kson!( "50" => f32)+99.0 );     
-// Output(f32): 149.0
-
-println!("{:#?}", kson!( "50" => f64)+99.0 );     
-// Output(f64): 149.0
-
-println!("{:#?}", kson!( 50.0 => f32)+99.0 );     
-// Output(f32): 149.0
-
-println!("{:#?}", kson!( 50.0 => i64)+99 );     
-// Output(i64): 149
-
 ```
 
 ---
@@ -221,17 +222,17 @@ Below are the descriptions of the functions and how to use them in your Rust cod
 use serde_kson::*;
 
 // kson_rand: Generates a random number between `min` and `max` (inclusive).
-let random_num = kson_rand(1, 100 ); 
+let random_num = kson_rand(1, 100); 
 println!("Random number: {}", random_num ); 
 // Output(i64): 79
 
-let another_random_num = kson_rand(-500, 10 ); 
+let another_random_num = kson_rand(-500, 10); 
 println!("Another random number: {}", another_random_num ); 
 // Output(i64): -324
 
 // kson_sleep: Suspends the current thread for the specified number of seconds.
 kson_sleep(1.00000001 );  
-// Sleeps for 2.5 seconds
+// Sleeps for 1.00000001 seconds
 
 kson_sleep(0.005 );  
 // Sleeps for 0.005 second

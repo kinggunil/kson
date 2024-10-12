@@ -97,6 +97,32 @@ fn main() {
     }
     */
 
+    ////// flexible type conversion/////////
+
+    println!("{:#?}", kson!( 77 => String) + "99" );
+    // Output(String): "7799"
+
+    println!("{:#?}", kson!( "77" => String) + "99" );
+    // Output(String): "7799"
+
+    println!("{:#?}", kson!( "50" => i64)+99 );     
+    // Output(i64): 149
+
+    println!("{:#?}", kson!( "50" => i32)+99 );     
+    // Output(i32): 149
+
+    println!("{:#?}", kson!( "50" => f32)+99.0 );     
+    // Output(f32): 149.0
+
+    println!("{:#?}", kson!( "50" => f64)+99.0 );     
+    // Output(f64): 149.0
+
+    println!("{:#?}", kson!( 50.0 => f32)+99.0 );     
+    // Output(f32): 149.0
+
+    println!("{:#?}", kson!( 50.0 => i64)+99 );     
+    // Output(i64): 149
+
     /////// very easy flexible type conversion/////////
 
     kson!(b); 
@@ -142,31 +168,7 @@ fn main() {
     // Output(i64): 88
 
 
-    ////// more flexible type conversion/////////
 
-    println!("{:#?}", kson!( 77 => String) + "99" );
-    // Output(String): "7799"
-
-    println!("{:#?}", kson!( "77" => String) + "99" );
-    // Output(String): "7799"
-
-    println!("{:#?}", kson!( "50" => i64)+99 );     
-    // Output(i64): 149
-
-    println!("{:#?}", kson!( "50" => i32)+99 );     
-    // Output(i32): 149
-
-    println!("{:#?}", kson!( "50" => f32)+99.0 );     
-    // Output(f32): 149.0
-
-    println!("{:#?}", kson!( "50" => f64)+99.0 );     
-    // Output(f64): 149.0
-
-    println!("{:#?}", kson!( 50.0 => f32)+99.0 );     
-    // Output(f32): 149.0
-
-    println!("{:#?}", kson!( 50.0 => i64)+99 );     
-    // Output(i64): 149
 
 
     // kson_rand: Generates a random number between `min` and `max` (inclusive).
@@ -180,7 +182,7 @@ fn main() {
 
     // kson_sleep: Suspends the current thread for the specified number of seconds.
     kson_sleep(1.00000001 );  
-    // Sleeps for 2.5 seconds
+    // Sleeps for 1.00000001 seconds
 
     kson_sleep(0.005 );  
     // Sleeps for 0.005 second
